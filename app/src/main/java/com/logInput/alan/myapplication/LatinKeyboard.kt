@@ -53,11 +53,10 @@ class LatinKeyboard : Keyboard {
      */
     private var mSavedLanguageSwitchKey: Keyboard.Key? = null
 
-    constructor(context: Context, xmlLayoutResId: Int) : super(context, xmlLayoutResId) {}
+    constructor(context: Context, xmlLayoutResId: Int) : super(context, xmlLayoutResId)
 
     constructor(context: Context, layoutTemplateResId: Int,
-                characters: CharSequence, columns: Int, horizontalPadding: Int) : super(context, layoutTemplateResId, characters, columns, horizontalPadding) {
-    }
+                characters: CharSequence, columns: Int, horizontalPadding: Int) : super(context, layoutTemplateResId, characters, columns, horizontalPadding)
 
     override fun createKeyFromXml(res: Resources, parent: Keyboard.Row, x: Int, y: Int,
                                   parser: XmlResourceParser): Keyboard.Key {
@@ -151,6 +150,7 @@ class LatinKeyboard : Keyboard {
         override fun isInside(x: Int, y: Int): Boolean {
             return super.isInside(x, if (codes[0] == Keyboard.KEYCODE_CANCEL) y - 10 else y)
         }
+
     }
 
 }

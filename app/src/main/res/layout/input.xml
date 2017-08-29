@@ -18,10 +18,13 @@
 */
 -->
 
-<com.logInput.alan.myapplication.LatinKeyboardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/keyboard"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+<com.logInput.alan.myapplication.LatinKeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/background"
+    android:keyBackground="@color/key_background"
+    android:keyTextColor="@color/text_color"
+    android:popupLayout="@color/candidate_recommended"
+    />

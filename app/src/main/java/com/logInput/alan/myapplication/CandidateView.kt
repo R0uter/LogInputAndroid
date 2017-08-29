@@ -16,6 +16,7 @@
 
 package com.logInput.alan.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -26,22 +27,18 @@ import android.view.MotionEvent
 import android.view.View
 import com.example.android.softkeyboard.R
 
-import java.util.ArrayList
-
 class CandidateView
 /**
  * Construct a CandidateView for showing suggested words for completion.
  * @param context
- * *
- * @param attrs
  */
-(context: Context) : View(context) {
+constructor(context: Context, private var mService: LogInputService) : View(context) {
 
-    private var mService: SoftKeyboard? = null
     private var mSuggestions: List<String>? = null
     private var mSelectedIndex: Int = 0
     private var mTouchX = OUT_OF_BOUNDS
-    private val mSelectionHighlight: Drawable
+    private val mSelectionHighlight: Drawable = context.resources.getDrawable(
+            android.R.drawable.list_selector_background)
     private var mTypedWordValid: Boolean = false
 
     private var mBgPadding: Rect? = null
@@ -62,9 +59,12 @@ class CandidateView
     private val mGestureDetector: GestureDetector
 
     init {
-        mSelectionHighlight = context.resources.getDrawable(
-                android.R.drawable.list_selector_background)
-        mSelectionHighlight.state = intArrayOf(android.R.attr.state_enabled, android.R.attr.state_focused, android.R.attr.state_window_focused, android.R.attr.state_pressed)
+        mSelectionHighlight.state = intArrayOf(
+                android.R.attr.state_enabled,
+                android.R.attr.state_focused,
+                android.R.attr.state_window_focused,
+                android.R.attr.state_pressed
+        )
 
         val r = context.resources
 
@@ -72,14 +72,15 @@ class CandidateView
 
         mColorNormal = r.getColor(R.color.candidate_normal)
         mColorRecommended = r.getColor(R.color.candidate_recommended)
-        mColorOther = r.getColor(R.color.candidate_other)
+        mColorOther = r.getColor(R.color.candidate_normal)
         mVerticalPadding = r.getDimensionPixelSize(R.dimen.candidate_vertical_padding)
 
-        mPaint = Paint()
-        mPaint.color = mColorNormal
-        mPaint.isAntiAlias = true
-        mPaint.textSize = r.getDimensionPixelSize(R.dimen.candidate_font_height).toFloat()
-        mPaint.strokeWidth = 0f
+        mPaint = Paint().apply {
+            color = mColorNormal
+            isAntiAlias = true
+            textSize = r.getDimensionPixelSize(R.dimen.candidate_font_height).toFloat()
+            strokeWidth = 0f
+        }
 
         mGestureDetector = GestureDetector(object : GestureDetector.SimpleOnGestureListener() {
             override fun onScroll(e1: MotionEvent, e2: MotionEvent,
@@ -105,30 +106,21 @@ class CandidateView
         isVerticalScrollBarEnabled = false
     }
 
-    /**
-     * A connection back to the service to communicate with the text field
-     * @param listener
-     */
-    fun setService(listener: SoftKeyboard) {
-        mService = listener
-    }
-
     public override fun computeHorizontalScrollRange(): Int {
         return mTotalWidth
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val measuredWidth = View.resolveSize(50, widthMeasureSpec)
 
         // Get the desired height of the icon menu view (last row of items does
         // not have a divider below)
-        val padding = Rect()
-        mSelectionHighlight.getPadding(padding)
-        val desiredHeight = mPaint.textSize.toInt() + mVerticalPadding
-        +padding.top + padding.bottom
+//        @SuppressLint("DrawAllocation")
+//        val padding = Rect()
+//        mSelectionHighlight.getPadding(padding)
 
+        val desiredHeight = mPaint.textSize.toInt() + mVerticalPadding
         // Maximum possible width and desired height
-        setMeasuredDimension(measuredWidth,
+        setMeasuredDimension(View.resolveSize(50, widthMeasureSpec),
                 View.resolveSize(desiredHeight, heightMeasureSpec))
     }
 
@@ -137,9 +129,7 @@ class CandidateView
      * candidate.
      */
     override fun onDraw(canvas: Canvas?) {
-        if (canvas != null) {
-            super.onDraw(canvas)
-        }
+        canvas?.apply { super.onDraw(canvas) }
         mTotalWidth = 0
         if (mSuggestions == null) return
 
@@ -218,6 +208,7 @@ class CandidateView
         invalidate()
     }
 
+    @SuppressLint("WrongCall")
     fun setSuggestions(suggestions: List<String>?, completions: Boolean,
                        typedWordValid: Boolean) {
         clear()
@@ -240,6 +231,7 @@ class CandidateView
         invalidate()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(me: MotionEvent): Boolean {
 
         if (mGestureDetector.onTouchEvent(me)) {
@@ -280,20 +272,6 @@ class CandidateView
         return true
     }
 
-    /**
-     * For flick through from keyboard, call this method with the x coordinate of the flick
-     * gesture.
-     * @param x
-     */
-    fun takeSuggestionAt(x: Float) {
-        mTouchX = x.toInt()
-        // To detect candidate
-        onDraw(null)
-        if (mSelectedIndex >= 0) {
-            mService!!.pickSuggestionManually(mSelectedIndex)
-        }
-        invalidate()
-    }
 
     private fun removeHighlight() {
         mTouchX = OUT_OF_BOUNDS

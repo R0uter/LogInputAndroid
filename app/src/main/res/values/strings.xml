@@ -17,7 +17,7 @@
 ** limitations under the License.
 */
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Title for Latin keyboard  -->
     <string name="ime_name">Sample Soft Keyboard</string>
 
@@ -37,5 +37,5 @@
     <string name="settings_name">Sample Soft Keyboard Settings</string>
     <string name="language_selection_title">Input languages</string>
     <string name="select_language">Select input languages</string>
-    <string name="general_category">General</string>
+    <string name="general_category" tools:ignore="UnusedResources">General</string>
 </resources>

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.softkeyboard">
     <application android:label="@string/ime_name">
-        <service android:name="com.logInput.alan.myapplication.SoftKeyboard"
+        <service android:name="com.logInput.alan.myapplication.LogInputService"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
@@ -9,11 +9,7 @@
             <meta-data android:name="android.view.im" android:resource="@xml/method" />
         </service>
 
-        <activity android:name="com.logInput.alan.myapplication.ImePreferences" android:label="@string/settings_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
+        <activity android:name="com.logInput.alan.myapplication.ImePreferences" android:label="@string/settings_name"/>
 
     </application>
 </manifest>

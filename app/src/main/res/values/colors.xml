@@ -18,8 +18,11 @@
 */
 -->
 <resources>
-    <color name="candidate_normal">#FF000000</color>
-    <color name="candidate_recommended">#FFE35900</color>
-    <color name="candidate_other">#ff808080</color>
-    <color name="candidate_background">#bbffffff</color>
+    <color name="candidate_normal">#e5e5e5</color>
+    <color name="candidate_recommended">#e5e5e5</color>
+    <color name="candidate_background">#8c8c8c</color>
+    <color name="key_background">#3c3c3c</color>
+    <color name="background">#2c1c2c</color>
+    <color name="space">#8c8c8c</color>
+    <color name="text_color">#ebeef0</color>
 </resources>

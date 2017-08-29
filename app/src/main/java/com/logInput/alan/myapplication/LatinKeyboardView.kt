@@ -17,6 +17,7 @@
 package com.logInput.alan.myapplication
 
 import android.content.Context
+import android.graphics.Canvas
 import android.inputmethodservice.Keyboard
 import android.inputmethodservice.Keyboard.Key
 import android.inputmethodservice.KeyboardView
@@ -25,9 +26,17 @@ import android.view.inputmethod.InputMethodSubtype
 
 class LatinKeyboardView : KeyboardView {
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs){
+        isPreviewEnabled = false
+    }
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle){
+        isPreviewEnabled = false
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+    }
 
     override fun onLongPress(key: Key): Boolean {
         if (key.codes[0] == Keyboard.KEYCODE_CANCEL) {
@@ -40,7 +49,6 @@ class LatinKeyboardView : KeyboardView {
 
     internal fun setSubtypeOnSpaceKey(subtype: InputMethodSubtype) {
         val keyboard = keyboard as LatinKeyboard
-        keyboard.setSpaceIcon(resources.getDrawable(subtype.iconResId))
         invalidateAllKeys()
     }
 

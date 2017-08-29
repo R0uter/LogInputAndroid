@@ -96,7 +96,7 @@ import android.view.inputmethod.InputMethodManager
         val N = subtypes.size
         for (i in 0..N - 1) {
             val subtype = subtypes[i]
-            if (sb.length > 0) {
+            if (sb.isNotEmpty()) {
                 sb.append(", ")
             }
             sb.append(subtype.getDisplayName(context, imi.packageName,
