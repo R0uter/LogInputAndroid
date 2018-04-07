@@ -1,15 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.softkeyboard">
-    <application android:label="@string/ime_name">
-        <service android:name="com.logInput.alan.myapplication.LogInputService"
+    package="im.lginput.ime_full">
+
+    <application
+        android:name="im.lginput.app.LgApp"
+        android:label="@string/ime_name">
+
+
+        <service
+            android:name="im.lginput.keyboard.LgSoftKeyboard"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
-            <meta-data android:name="android.view.im" android:resource="@xml/method" />
+
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
         </service>
 
-        <activity android:name="com.logInput.alan.myapplication.ImePreferences" android:label="@string/settings_name"/>
-
+        <activity android:name="im.lginput.app.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
+
 </manifest>

@@ -1,6 +1,5 @@
-# LogInputAndroid
-LogInputAndroid is LogInput Android Version, now it is OpenSource.
+# AndroidCustomKeyboard
 
-project file now have moved to [gitlab](https://gitlab.com/AlanWANG1995/LogInputAndroid).  
+Android custom keyboard with predictive text.
 
-this repo just storage.
+![Animated Gif](keyboard.gif)
